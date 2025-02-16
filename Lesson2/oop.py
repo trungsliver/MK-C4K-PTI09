@@ -2,7 +2,7 @@
 # 	- Thuộc tính: width, height
 # 	- Phương thức:
 # 		+ cvi(): tính chu vi HCN
-# 		+ dtich(: tính diện tích HCN
+# 		+ dtich(): tính diện tích HCN
 
 # Bài 2: Xây dựng class BankAccount gồm:
 # 	- Thuộc tính: 

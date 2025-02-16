@@ -1,3 +1,19 @@
+# Hàm map(function, itertable)
+    # function: hàm biến đổi phần tử
+    # itertable: đối tượng dữ liệu
+
+# Ví dụ: Cho cho danh sách điểm hệ số 10
+# Yêu cầu: dùng map() để chuyển đổi danh sách sang hệ số 4
+gpa_10 = [5, 7, 8, 10, 9]
+    # Cách 1: lambda - hàm không xác định / hàm ẩn danh
+gpa_4 = map(lambda gpa: gpa/10 * 4, gpa_10)
+print(list(gpa_4))
+    # Cách 2: Dùng hàm xác định
+def convert_gpa(score):
+    return score / 10 * 4
+gpa_4 = map(convert_gpa, gpa_10)
+print(list(gpa_4))
+
 # DICTIONARY & MAP
 # Bài 1: Cho 1 danh sách gồm tên của học sinh (viết hoa lộn xộn)
 # Yêu cầu: Dùng map() để chuyển đổi danh sách trên viết hoa tất cả chữ

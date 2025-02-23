@@ -23,3 +23,19 @@ with open('anime.json', 'r') as file:
                             data['title'],
                             data['release_date'])
 print(loaded_data.title)
+
+# Đọc nhiều đối tượng từ file json
+with open('anime2.json', 'r') as file:
+    anime_data = json.load(file)
+
+# Danh sách anime
+anime_list = list()
+for item in anime_data:
+    anime = AnimeItem(  item['id'], 
+                        item['title'],
+                        item['release_date'] )
+    anime_list.append(anime)
+
+# Hiện data để kiểm tra
+for item in anime_list:
+    print(f'{item.title} - {item.release_date}')

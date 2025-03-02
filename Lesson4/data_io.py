@@ -1,7 +1,7 @@
 import os, json
 
 # Xem đường dẫn hiện tại
-print(os.getcwd())
+# print(os.getcwd())
 
 # Đọc dữ liệu (READ)
 def load_json_data():

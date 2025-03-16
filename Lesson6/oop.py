@@ -2,8 +2,8 @@ import os, json
 import data_io
 
 class User:
-    def __init__(self, username, password):
-        self.username = username
+    def __init__(self, email, password):
+        self.email = email
         self.password = password
 
     def update(self, new_data:dict):
@@ -13,7 +13,7 @@ class User:
                 setattr(self, key, value)
 
     def show_info(self):
-        print(f"User: {self.username} \nPass: {self.password}")
+        print(f"User: {self.email} \nPass: {self.password}")
 
 class UserDatabase:
     def __init__(self):
@@ -26,7 +26,7 @@ class UserDatabase:
     def load_data(self):
         new_users = []
         for user_data in self.users_dict:
-            user = User(username = user_data["username"],
+            user = User(email = user_data["email"],
                         password = user_data["password"])
             new_users.append(user)
         self.users_list = new_users
@@ -39,10 +39,10 @@ class UserDatabase:
         return json_data
     
     # Thêm user mới
-    def add_user(self, username, password):
-        obj_user = User(username, password)
+    def add_user(self, email, password):
+        obj_user = User(email, password)
         dict_user = {
-            "username": username,
+            "email": email,
             "password": password
         }
         # Thêm vào danh sách object
@@ -53,19 +53,19 @@ class UserDatabase:
         data_io.write_json_data(self.users_dict)
 
     # Tìm object bằng thuộc tính username
-    def find_player_by_name(self, username):
+    def find_user_by_email(self, email):
         for user in self.users_dict:
             # Tìm thấy
-            if user['username'] == username:
+            if user['email'] == email:
                 return True
         # Không tìm thấy
         return False
     
     # Check user login
-    def check_login(self, username, password):
-        for user in self.users_list:
+    def check_login(self, email, password):
+        for user in self.users_dict:
             # Tìm thấy
-            if user.username == username and user.password == password:
+            if user['email'] == email and user['password'] == password:
                 return True
         # Không tìm thấy
         return False

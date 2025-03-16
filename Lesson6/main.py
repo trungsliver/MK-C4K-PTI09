@@ -2,19 +2,72 @@ import sys
 from PyQt6.QtWidgets import QMainWindow, QApplication
 from PyQt6 import QtCore, QtWidgets
 from PyQt6 import uic
+import oop, data_io
 
 # xử lý
 app = QApplication(sys.argv)
+dtb = oop.UserDatabase()
+
 
 class Signup(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('signup.ui', self)
-        
+        self.pushButton_signup.clicked.connect(self.check_signup)
+
+    # Phương thức check_signup
+    def check_signup(self):
+        # Lấy dữ liệu từ các trường
+        username = self.lineEdit_username.text().strip()
+        email = self.lineEdit_email.text().strip()
+        password = self.lineEdit_password.text().strip()
+        confirm = self.lineEdit_confirm.text().strip()
+        checkB = self.checkBox.isChecked()
+        # Biến kiểm tra đăng ký
+        check = True
+
+        # Thiếu Thông tin
+        if username == '' or email == '' or password == '' or confirm == '' or checkB != True:
+            check = False
+            msg_box('Signup fail', 'Missing information!')
+        # Password và confirm không khớp
+        elif password != confirm:
+            check = False
+            msg_box('Signup fail', 'Password and confirm not match!')
+        # Đã tồn tại email trong danh sách users
+        else:
+            check_user = dtb.find_user_by_email(email)
+            if check_user == True:
+                check = False
+                msg_box('Signup fail', 'Email already exists!')
+
+        # Kiểm tra xem có đang ký thành công không
+        if check == True:
+            # Add tài khoản mới vào danh sách users
+            dtb.add_user(email, password)
+            msg_box('Signup success', 'Signup success!')
+            # Chuyển trang
+            switch_window(Login())
+
 class Login(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('login.ui', self)
+        self.pushButton_login.clicked.connect(self.check_login)
+
+    def check_login(self):
+        check = False
+        # Khai báo thuộc tính sẽ sử dụng
+        email = self.lineEdit_email.text().strip()
+        password = self.lineEdit_password.text().strip()
+        # Kiểm tra 
+        check = dtb.check_login(email, password)
+        
+        if check == True:
+            msg_box('Login success', 'Welcome to my app !!!')
+            switch_window(Signup())
+        else:
+            msg_box('Login fail', 'Email or password is incorrect!')
 
 # Hàm hiển thị thông báo
 def msg_box(title, content):
@@ -34,7 +87,7 @@ def switch_window(classw):
     global window
     window = classw
     window.show()
-         
+
 # Run app
 window = Signup()
 window.show()

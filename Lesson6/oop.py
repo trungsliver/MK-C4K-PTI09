@@ -51,3 +51,21 @@ class UserDatabase:
         self.users_dict.append(dict_user)
         # Ghi vào file json
         data_io.write_json_data(self.users_dict)
+
+    # Tìm object bằng thuộc tính username
+    def find_player_by_name(self, username):
+        for user in self.users_dict:
+            # Tìm thấy
+            if user['username'] == username:
+                return True
+        # Không tìm thấy
+        return False
+    
+    # Check user login
+    def check_login(self, username, password):
+        for user in self.users_list:
+            # Tìm thấy
+            if user.username == username and user.password == password:
+                return True
+        # Không tìm thấy
+        return False

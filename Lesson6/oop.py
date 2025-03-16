@@ -30,3 +30,24 @@ class UserDatabase:
                         password = user_data["password"])
             new_users.append(user)
         self.users_list = new_users
+    
+    # Chuyển đổi dữ liệu object sang json
+    def items_to_data(self):
+        json_data = list()
+        for user in self.users_list:
+            json_data.append(user.__dict__)
+        return json_data
+    
+    # Thêm user mới
+    def add_user(self, username, password):
+        obj_user = User(username, password)
+        dict_user = {
+            "username": username,
+            "password": password
+        }
+        # Thêm vào danh sách object
+        self.users_list.append(obj_user)
+        # Thêm vào danh sách dict
+        self.users_dict.append(dict_user)
+        # Ghi vào file json
+        data_io.write_json_data(self.users_dict)

@@ -7,7 +7,7 @@ from PyQt6 import uic
 app = QApplication(sys.argv)
 arr = ['Bảo Nam', 'Minh Tâm', 'Minh Đức', 'Khải Hưng']
 
-class Signup(QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('lesson7.ui', self)
@@ -66,7 +66,6 @@ class Signup(QMainWindow):
         # Xóa dữ liệu ở lineEdit
         self.lineEdit.setText('')
 
-
     def search_item(self):
         cur = self.listWidget.currentRow()
         insert_txt = self.lineEdit.text()
@@ -99,6 +98,6 @@ def msg_box(title, content):
     msg.exec()
 
 # Run app
-window = Signup()
+window = MainWindow()
 window.show()
 sys.exit(app.exec())
